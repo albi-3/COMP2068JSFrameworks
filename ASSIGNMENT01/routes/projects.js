@@ -3,19 +3,14 @@ const express = require('express');
 const router = express.Router();
 
 // GET Projects Page
-router.get('/projects', (req, res) => {
+router.get('/', (req, res) => {  
   const myProjects = [
     {
       title: 'Health Tracker',
-      description: 'This website is designed with an intention of having a healthy lifestyle with values like height and weight it calculates the Body Maas Index and gives the result. Along wiht the recommendation like the diet and workout that should be followed by that indivitual',
+      description: 'This website is designed with an intention of having a healthy lifestyle. Using height and weight values, it calculates the Body Mass Index (BMI) and provides recommendations such as diet and workouts tailored for the individual.',
       url: 'https://github.com/albi-3/healthtracker'
-    },
-    {
-      title: 'Project Two',
-      description: 'Description for project two.',
-      url: 'https://github.com/yourusername/project-two'
     }
-  ];
+  ];  
 
   res.render('projects', {
     title: 'Projects',
