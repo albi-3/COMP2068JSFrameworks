@@ -1,0 +1,22 @@
+<h1 class="text-center mt-4">Edit Meal ✏️</h1>
+
+<div class="container mt-4">
+  <form action="/edit/{{meal._id}}" method="POST">
+    <div class="mb-3">
+      <label class="form-label">Meal Name</label>
+      <input type="text" class="form-control" name="name" value="{{meal.name}}" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Calories</label>
+      <input type="number" class="form-control" name="calories" value="{{meal.calories}}" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" name="description" rows="3">{{meal.description}}</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Update Meal</button>
+  </form>
+</div>

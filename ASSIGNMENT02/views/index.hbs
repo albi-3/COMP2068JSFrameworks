@@ -1,4 +1,5 @@
 <h1 class="mt-5 text-center">FitMeal Planner 🍽️</h1>
+
 <div class="text-center mt-3 mb-4">
   <a href="/add" class="btn btn-primary">➕ Add New Meal</a>
 </div>
@@ -11,9 +12,12 @@
   {{#if meals.length}}
     <ul class="list-group">
       {{#each meals}}
-        <li class="list-group-item">
-          <strong>{{name}}</strong> - {{calories}} calories <br/>
-          <small>{{description}}</small>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>{{name}}</strong> – {{calories}} calories <br/>
+            <small>{{description}}</small>
+          </div>
+          <a href="/edit/{{_id}}" class="btn btn-sm btn-outline-primary">Edit</a>
         </li>
       {{/each}}
     </ul>
