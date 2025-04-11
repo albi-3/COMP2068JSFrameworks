@@ -1,0 +1,23 @@
+<h1 class="mt-5 text-center">FitMeal Planner 🍽️</h1>
+<div class="text-center mt-3 mb-4">
+  <a href="/add" class="btn btn-primary">➕ Add New Meal</a>
+</div>
+
+<p class="lead text-center">Your personalized meal tracking app.</p>
+
+<div class="container mt-4">
+  <h3 class="mb-3">Meals</h3>
+
+  {{#if meals.length}}
+    <ul class="list-group">
+      {{#each meals}}
+        <li class="list-group-item">
+          <strong>{{name}}</strong> - {{calories}} calories <br/>
+          <small>{{description}}</small>
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>No meals found in the database.</p>
+  {{/if}}
+</div>
