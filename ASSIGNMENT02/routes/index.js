@@ -21,7 +21,6 @@ router.get('/add', (req, res) => {
 // Handle form POST to add a new meal
 router.post('/add', async (req, res) => {
   try {
-    console.log('📦 Form Submitted:', req.body);
     const { name, calories, description } = req.body;
     const newMeal = new Meal({ name, calories, description });
     await newMeal.save();
@@ -43,7 +42,7 @@ router.get('/edit/:id', async (req, res) => {
   }
 });
 
-// Handle POST to update a meal
+// Handle form POST to update a meal
 router.post('/edit/:id', async (req, res) => {
   try {
     const { name, calories, description } = req.body;
@@ -52,6 +51,17 @@ router.post('/edit/:id', async (req, res) => {
   } catch (err) {
     console.error('❌ Failed to update meal:', err);
     res.status(500).send('Error updating meal');
+  }
+});
+
+// Handle POST to delete a meal
+router.post('/delete/:id', async (req, res) => {
+  try {
+    await Meal.findByIdAndDelete(req.params.id);
+    res.redirect('/');
+  } catch (err) {
+    console.error('❌ Failed to delete meal:', err);
+    res.status(500).send('Error deleting meal');
   }
 });
 
