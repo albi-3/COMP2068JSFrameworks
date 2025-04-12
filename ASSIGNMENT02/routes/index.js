@@ -1,9 +1,17 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const Meal = require('../models/Meal');
 
+// ✅ Auth middleware to protect private routes
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/auth/login');
+}
+
 // Home Page - List all meals
-router.get('/', async function(req, res, next) {
+router.get('/', ensureAuthenticated, async function (req, res, next) {
   try {
     const meals = await Meal.find().sort({ date: -1 });
     res.render('index', { title: 'FitMeal Planner', meals });
@@ -14,12 +22,12 @@ router.get('/', async function(req, res, next) {
 });
 
 // Show form to add a new meal
-router.get('/add', (req, res) => {
+router.get('/add', ensureAuthenticated, (req, res) => {
   res.render('add', { title: 'Add Meal' });
 });
 
 // Handle form POST to add a new meal
-router.post('/add', async (req, res) => {
+router.post('/add', ensureAuthenticated, async (req, res) => {
   try {
     const { name, calories, description } = req.body;
     const newMeal = new Meal({ name, calories, description });
@@ -32,7 +40,7 @@ router.post('/add', async (req, res) => {
 });
 
 // Show edit form for a meal
-router.get('/edit/:id', async (req, res) => {
+router.get('/edit/:id', ensureAuthenticated, async (req, res) => {
   try {
     const meal = await Meal.findById(req.params.id);
     res.render('edit', { title: 'Edit Meal', meal });
@@ -43,7 +51,7 @@ router.get('/edit/:id', async (req, res) => {
 });
 
 // Handle form POST to update a meal
-router.post('/edit/:id', async (req, res) => {
+router.post('/edit/:id', ensureAuthenticated, async (req, res) => {
   try {
     const { name, calories, description } = req.body;
     await Meal.findByIdAndUpdate(req.params.id, { name, calories, description });
@@ -55,7 +63,7 @@ router.post('/edit/:id', async (req, res) => {
 });
 
 // Handle POST to delete a meal
-router.post('/delete/:id', async (req, res) => {
+router.post('/delete/:id', ensureAuthenticated, async (req, res) => {
   try {
     await Meal.findByIdAndDelete(req.params.id);
     res.redirect('/');
