@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 
 module.exports = function (passport) {
-  // 🔐 Local Strategy
+  //  Local Strategy
   passport.use(new LocalStrategy(async (username, password, done) => {
     try {
       const user = await User.findOne({ username });
@@ -23,7 +23,7 @@ module.exports = function (passport) {
     }
   }));
 
-  // 🐙 GitHub Strategy
+  // GitHub Strategy
   passport.use(new GitHubStrategy({
     clientID: 'Ov23liEdFILDiFgam32w',
     clientSecret: 'de11526f390018823133c09f7b71ead03be8d31d',
@@ -45,12 +45,12 @@ module.exports = function (passport) {
     }
   }));
 
-  // 💾 Session Serialize
+  //  Session Serialize
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });
 
-  // ✅ Session Deserialize (FIXED with async/await)
+  //  Session Deserialize (FIXED with async/await)
   passport.deserializeUser(async (id, done) => {
     try {
       const user = await User.findById(id); // no callback used here

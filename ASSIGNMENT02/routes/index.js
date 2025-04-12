@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Meal = require('../models/Meal');
 
-// ✅ Auth middleware to protect private routes
+//  Auth middleware to protect private routes
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
